@@ -1,0 +1,22 @@
+# Eclipse Core
+.metadata/
+.recommenders/
+bin/
+tmp/
+
+# Eclipse Project Files
+# Some teams commit these, but for personal practice it's cleaner to ignore them
+.classpath
+.project
+.settings/
+.factorypath
+
+# Maven (if using Maven in Eclipse)
+target/
+
+# Log files
+*.log
+
+# Windows System Files
+Thumbs.db
+Desktop.ini
