@@ -25,5 +25,14 @@ public class QuantityMeasurementApp {
 
 		System.out.println("Input: 1.0 inch and 1.0 inch");
 		System.out.println("Output: Equal (" + inchResult + ")");
+
+		// UC3: Generic Quantity Length
+		QuantityLength q1 = new QuantityLength(1.0, LengthUnit.FEET);
+		QuantityLength q2 = new QuantityLength(12.0, LengthUnit.INCH);
+
+		boolean quantityResult = q1.equals(q2);
+
+		System.out.println("Input: Quantity(1.0, FEET) and Quantity(12.0, INCH)");
+		System.out.println("Output: Equal (" + quantityResult + ")");
 	}
 }
