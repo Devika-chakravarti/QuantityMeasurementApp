@@ -34,5 +34,20 @@ public class QuantityMeasurementApp {
 
 		System.out.println("Input: Quantity(1.0, FEET) and Quantity(12.0, INCH)");
 		System.out.println("Output: Equal (" + quantityResult + ")");
+
+		// UC4:
+		// Yard to Feet comparison
+		QuantityLength yard = new QuantityLength(1.0, LengthUnit.YARDS);
+		QuantityLength feet = new QuantityLength(3.0, LengthUnit.FEET);
+
+		System.out.println("Input: Quantity(1.0, YARDS) and Quantity(3.0, FEET)");
+		System.out.println("Output: Equal (" + yard.equals(feet) + ")");
+
+		// Centimeter to Inch comparison
+		QuantityLength cm = new QuantityLength(1.0, LengthUnit.CENTIMETERS);
+		QuantityLength inchEquivalent = new QuantityLength(0.393701, LengthUnit.INCH);
+
+		System.out.println("Input: Quantity(1.0, CENTIMETERS) and Quantity(0.393701, INCH)");
+		System.out.println("Output: Equal (" + cm.equals(inchEquivalent) + ")");
 	}
 }
