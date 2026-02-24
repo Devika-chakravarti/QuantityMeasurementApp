@@ -25,10 +25,7 @@ public final class QuantityLength {
 		validate(value, source);
 		Objects.requireNonNull(target, "Target unit cannot be null");
 
-		// Convert source to feet
 		double valueInFeet = source.toFeet(value);
-
-		// Convert feet to target
 		return valueInFeet / target.toFeet(1.0);
 	}
 
@@ -41,8 +38,18 @@ public final class QuantityLength {
 	}
 
 	/**
-	 * Convert current value to feet.
+	 * UC6: Add two quantities and return result in given unit.
 	 */
+	public QuantityLength add(QuantityLength other, LengthUnit resultUnit) {
+		Objects.requireNonNull(other, "Other quantity cannot be null");
+		Objects.requireNonNull(resultUnit, "Result unit cannot be null");
+
+		double totalInFeet = this.toBaseUnit() + other.toBaseUnit();
+		double resultValue = totalInFeet / resultUnit.toFeet(1.0);
+
+		return new QuantityLength(resultValue, resultUnit);
+	}
+
 	private double toBaseUnit() {
 		return unit.toFeet(value);
 	}

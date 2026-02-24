@@ -69,6 +69,23 @@ public class QuantityMeasurementApp {
 		System.out.println();
 	}
 
+	// UC6: Addition feature
+	public static void demonstrateAddition() {
+
+		QuantityLength oneFoot = new QuantityLength(1.0, LengthUnit.FEET);
+		QuantityLength twelveInch = new QuantityLength(12.0, LengthUnit.INCH);
+
+		QuantityLength resultInFeet = oneFoot.add(twelveInch, LengthUnit.FEET);
+		System.out.println("Addition: 1.0 FEET + 12.0 INCH in FEET");
+		System.out.println("Output: " + resultInFeet.getValue());
+		System.out.println();
+
+		QuantityLength resultInInch = oneFoot.add(twelveInch, LengthUnit.INCH);
+		System.out.println("Addition: 1.0 FEET + 12.0 INCH in INCH");
+		System.out.println("Output: " + resultInInch.getValue());
+		System.out.println();
+	}
+
 	public static void main(String[] args) {
 
 		demonstrateFeetEquality();
@@ -76,5 +93,6 @@ public class QuantityMeasurementApp {
 		demonstrateCrossUnitEquality();
 		demonstrateAdditionalComparisons();
 		demonstrateConversion();
+		demonstrateAddition();
 	}
 }
