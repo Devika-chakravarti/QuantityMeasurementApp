@@ -9,7 +9,7 @@ This is the very first increment of the app - focused only on equality compariso
 Goal: Learn proper object equality in Java, handle floating-point values safely, and write clean, testable code.
 
 ## Project Structure:
-
+```
 src  
  ├── main  
  │    └── java/
@@ -24,8 +24,10 @@ src
  │              └── quantitymeasurement
  │                        └── FeetEqualityTest.java 
  ├── .gitignore
- └── pom.xml
+ |── pom.xml
+ └── README.md
 
+```
 ## Features Implemented in UC1
 - Represents a measurement in **feet** using a dedicated `Feet` class  
 - Makes the `Feet` class **immutable** (value is `private final`)  
