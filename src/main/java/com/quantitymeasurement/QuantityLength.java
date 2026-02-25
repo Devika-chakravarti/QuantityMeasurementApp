@@ -18,18 +18,14 @@ public final class QuantityLength {
 		this.unit = unit;
 	}
 
-	// UC5 Conversion
-	public static double convert(double value, LengthUnit source, LengthUnit target) {
-		validate(value, source);
-		if (target == null)
+	// UC5 Conversion (object-based after LengthUnit refactor)
+	public QuantityLength convertTo(LengthUnit targetUnit) {
+		if (targetUnit == null)
 			throw new IllegalArgumentException("Target unit cannot be null");
 
-		double valueInFeet = source.toFeet(value);
-		return valueInFeet / target.toFeet(1.0);
-	}
+		double valueInFeet = unit.convertToBaseUnit(this.value);
+		double convertedValue = targetUnit.convertFromBaseUnit(valueInFeet);
 
-	public QuantityLength convertTo(LengthUnit targetUnit) {
-		double convertedValue = convert(this.value, this.unit, targetUnit);
 		return new QuantityLength(convertedValue, targetUnit);
 	}
 
@@ -55,11 +51,11 @@ public final class QuantityLength {
 	// Private utility method (DRY principle)
 	private double addInBaseAndConvert(QuantityLength other, LengthUnit targetUnit) {
 		double sumInFeet = this.toBaseUnit() + other.toBaseUnit();
-		return sumInFeet / targetUnit.toFeet(1.0);
+		return targetUnit.convertFromBaseUnit(sumInFeet);
 	}
 
 	private double toBaseUnit() {
-		return unit.toFeet(value);
+		return unit.convertToBaseUnit(value);
 	}
 
 	private static void validate(double value, LengthUnit unit) {

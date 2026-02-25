@@ -50,22 +50,22 @@ public class QuantityMeasurementApp {
 		System.out.println();
 	}
 
-	// UC5: Conversion feature
+	// UC5: Conversion feature (updated)
 	public static void demonstrateConversion() {
 
-		double feetToInch = QuantityLength.convert(1.0, LengthUnit.FEET, LengthUnit.INCH);
+		QuantityLength feetToInch = new QuantityLength(1.0, LengthUnit.FEET).convertTo(LengthUnit.INCH);
 		System.out.println("Conversion: 1.0 FEET to INCH");
-		System.out.println("Output: " + feetToInch);
+		System.out.println("Output: " + feetToInch.getValue());
 		System.out.println();
 
-		double inchToFeet = QuantityLength.convert(24.0, LengthUnit.INCH, LengthUnit.FEET);
+		QuantityLength inchToFeet = new QuantityLength(24.0, LengthUnit.INCH).convertTo(LengthUnit.FEET);
 		System.out.println("Conversion: 24.0 INCH to FEET");
-		System.out.println("Output: " + inchToFeet);
+		System.out.println("Output: " + inchToFeet.getValue());
 		System.out.println();
 
-		double yardToInch = QuantityLength.convert(1.0, LengthUnit.YARDS, LengthUnit.INCH);
+		QuantityLength yardToInch = new QuantityLength(1.0, LengthUnit.YARDS).convertTo(LengthUnit.INCH);
 		System.out.println("Conversion: 1.0 YARDS to INCH");
-		System.out.println("Output: " + yardToInch);
+		System.out.println("Output: " + yardToInch.getValue());
 		System.out.println();
 	}
 
