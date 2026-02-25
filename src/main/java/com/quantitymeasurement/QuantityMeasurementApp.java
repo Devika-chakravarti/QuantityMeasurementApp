@@ -86,6 +86,22 @@ public class QuantityMeasurementApp {
 		System.out.println();
 	}
 
+	public static void demonstrateTargetUnitAddition() {
+
+		System.out.println("Input: add(Quantity(1.0, FEET), Quantity(12.0, INCH), FEET)");
+		System.out.println("Output: " + new QuantityLength(1.0, LengthUnit.FEET)
+				.add(new QuantityLength(12.0, LengthUnit.INCH), LengthUnit.FEET));
+
+		System.out.println("Input: add(Quantity(1.0, FEET), Quantity(12.0, INCH), INCH)");
+		System.out.println("Output: " + new QuantityLength(1.0, LengthUnit.FEET)
+				.add(new QuantityLength(12.0, LengthUnit.INCH), LengthUnit.INCH));
+
+		System.out.println("Input: add(Quantity(1.0, FEET), Quantity(12.0, INCH), YARDS)");
+		System.out.println("Output: " + new QuantityLength(1.0, LengthUnit.FEET)
+				.add(new QuantityLength(12.0, LengthUnit.INCH), LengthUnit.YARDS));
+		System.out.println();
+	}
+
 	public static void main(String[] args) {
 
 		demonstrateFeetEquality();
@@ -94,5 +110,6 @@ public class QuantityMeasurementApp {
 		demonstrateAdditionalComparisons();
 		demonstrateConversion();
 		demonstrateAddition();
+		demonstrateTargetUnitAddition();
 	}
 }

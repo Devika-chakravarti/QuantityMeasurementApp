@@ -18,36 +18,44 @@ public final class QuantityLength {
 		this.unit = unit;
 	}
 
-	/**
-	 * Static conversion method.
-	 */
+	// UC5 Conversion
 	public static double convert(double value, LengthUnit source, LengthUnit target) {
 		validate(value, source);
-		Objects.requireNonNull(target, "Target unit cannot be null");
+		if (target == null)
+			throw new IllegalArgumentException("Target unit cannot be null");
 
 		double valueInFeet = source.toFeet(value);
 		return valueInFeet / target.toFeet(1.0);
 	}
 
-	/**
-	 * Convert to another unit.
-	 */
 	public QuantityLength convertTo(LengthUnit targetUnit) {
 		double convertedValue = convert(this.value, this.unit, targetUnit);
 		return new QuantityLength(convertedValue, targetUnit);
 	}
 
-	/**
-	 * UC6: Add two quantities and return result in given unit.
-	 */
-	public QuantityLength add(QuantityLength other, LengthUnit resultUnit) {
-		Objects.requireNonNull(other, "Other quantity cannot be null");
-		Objects.requireNonNull(resultUnit, "Result unit cannot be null");
+	// UC6: Addition (implicit target = first operand unit)
+	public QuantityLength add(QuantityLength other) {
+		if (other == null)
+			throw new IllegalArgumentException("Other quantity cannot be null");
 
-		double totalInFeet = this.toBaseUnit() + other.toBaseUnit();
-		double resultValue = totalInFeet / resultUnit.toFeet(1.0);
+		return add(other, this.unit);
+	}
 
-		return new QuantityLength(resultValue, resultUnit);
+	// UC7: Addition with explicit target unit
+	public QuantityLength add(QuantityLength other, LengthUnit targetUnit) {
+		if (other == null)
+			throw new IllegalArgumentException("Other quantity cannot be null");
+		if (targetUnit == null)
+			throw new IllegalArgumentException("Target unit cannot be null");
+
+		double resultValue = addInBaseAndConvert(other, targetUnit);
+		return new QuantityLength(resultValue, targetUnit);
+	}
+
+	// Private utility method (DRY principle)
+	private double addInBaseAndConvert(QuantityLength other, LengthUnit targetUnit) {
+		double sumInFeet = this.toBaseUnit() + other.toBaseUnit();
+		return sumInFeet / targetUnit.toFeet(1.0);
 	}
 
 	private double toBaseUnit() {
@@ -79,7 +87,7 @@ public final class QuantityLength {
 
 	@Override
 	public String toString() {
-		return value + " " + unit;
+		return "Quantity(" + value + ", " + unit + ")";
 	}
 
 	public double getValue() {
