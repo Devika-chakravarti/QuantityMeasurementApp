@@ -102,6 +102,28 @@ public class QuantityMeasurementApp {
 		System.out.println();
 	}
 
+	// UC9: Weight Equality & Conversion
+	public static void demonstrateWeightFeatures() {
+
+		QuantityWeight kg = new QuantityWeight(1.0, WeightUnit.KILOGRAM);
+		QuantityWeight gram = new QuantityWeight(1000.0, WeightUnit.GRAM);
+
+		System.out.println("Weight Equality:");
+		System.out.println("1 KG equals 1000 G -> " + kg.equals(gram));
+		System.out.println();
+
+		System.out.println("Weight Conversion:");
+		System.out.println("1 KG to Gram -> " + kg.convertTo(WeightUnit.GRAM));
+		System.out.println(
+				"2 Pound to Kilogram -> " + new QuantityWeight(2.0, WeightUnit.POUND).convertTo(WeightUnit.KILOGRAM));
+		System.out.println();
+
+		System.out.println("Weight Addition:");
+		System.out.println("1 KG + 1000 G -> " + kg.add(gram));
+		System.out.println("1 KG + 1000 G in Gram -> " + kg.add(gram, WeightUnit.GRAM));
+		System.out.println();
+	}
+
 	public static void main(String[] args) {
 
 		demonstrateFeetEquality();
@@ -111,5 +133,6 @@ public class QuantityMeasurementApp {
 		demonstrateConversion();
 		demonstrateAddition();
 		demonstrateTargetUnitAddition();
+		demonstrateWeightFeatures();
 	}
 }
