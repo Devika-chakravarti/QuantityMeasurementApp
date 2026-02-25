@@ -9,37 +9,46 @@ public class ConversionTest {
 
 	@Test
 	void testConversion_FeetToInch() {
-		assertEquals(12.0, QuantityLength.convert(1.0, LengthUnit.FEET, LengthUnit.INCH), EPSILON);
+		QuantityLength result = new QuantityLength(1.0, LengthUnit.FEET).convertTo(LengthUnit.INCH);
+
+		assertEquals(12.0, result.getValue(), EPSILON);
 	}
 
 	@Test
 	void testConversion_InchToFeet() {
-		assertEquals(2.0, QuantityLength.convert(24.0, LengthUnit.INCH, LengthUnit.FEET), EPSILON);
+		QuantityLength result = new QuantityLength(24.0, LengthUnit.INCH).convertTo(LengthUnit.FEET);
+
+		assertEquals(2.0, result.getValue(), EPSILON);
 	}
 
 	@Test
 	void testConversion_YardsToInch() {
-		assertEquals(36.0, QuantityLength.convert(1.0, LengthUnit.YARDS, LengthUnit.INCH), EPSILON);
+		QuantityLength result = new QuantityLength(1.0, LengthUnit.YARDS).convertTo(LengthUnit.INCH);
+
+		assertEquals(36.0, result.getValue(), EPSILON);
 	}
 
 	@Test
 	void testConversion_ZeroValue() {
-		assertEquals(0.0, QuantityLength.convert(0.0, LengthUnit.FEET, LengthUnit.INCH), EPSILON);
+		QuantityLength result = new QuantityLength(0.0, LengthUnit.FEET).convertTo(LengthUnit.INCH);
+
+		assertEquals(0.0, result.getValue(), EPSILON);
 	}
 
 	@Test
 	void testConversion_NegativeValue() {
-		assertEquals(-12.0, QuantityLength.convert(-1.0, LengthUnit.FEET, LengthUnit.INCH), EPSILON);
+		QuantityLength result = new QuantityLength(-1.0, LengthUnit.FEET).convertTo(LengthUnit.INCH);
+
+		assertEquals(-12.0, result.getValue(), EPSILON);
 	}
 
 	@Test
 	void testConversion_InvalidUnit_Throws() {
-		assertThrows(IllegalArgumentException.class, () -> QuantityLength.convert(1.0, null, LengthUnit.FEET));
+		assertThrows(IllegalArgumentException.class, () -> new QuantityLength(1.0, null));
 	}
 
 	@Test
 	void testConversion_NaNOrInfinite_Throws() {
-		assertThrows(IllegalArgumentException.class,
-				() -> QuantityLength.convert(Double.NaN, LengthUnit.FEET, LengthUnit.INCH));
+		assertThrows(IllegalArgumentException.class, () -> new QuantityLength(Double.NaN, LengthUnit.FEET));
 	}
 }

@@ -102,7 +102,6 @@ public class TargetUnitSpecificationTest {
 				.add(new QuantityLength(500.0, LengthUnit.FEET), LengthUnit.INCH);
 
 		assertEquals(18000.0, result.getValue(), EPS);
-		assertEquals(LengthUnit.INCH, result.getUnit());
 	}
 
 	@Test
@@ -111,7 +110,6 @@ public class TargetUnitSpecificationTest {
 				LengthUnit.YARDS);
 
 		assertEquals(0.667, result.getValue(), EPS);
-		assertEquals(LengthUnit.YARDS, result.getUnit());
 	}
 
 	@Test
@@ -125,8 +123,7 @@ public class TargetUnitSpecificationTest {
 
 					QuantityLength result = q1.add(q2, target);
 
-					double expected = QuantityLength.convert(1.0, unit1, target)
-							+ QuantityLength.convert(2.0, unit2, target);
+					double expected = q1.convertTo(target).getValue() + q2.convertTo(target).getValue();
 
 					assertEquals(expected, result.getValue(), EPS);
 					assertEquals(target, result.getUnit());
