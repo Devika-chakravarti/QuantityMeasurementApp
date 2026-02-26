@@ -66,7 +66,6 @@ public final class Quantity<U extends IMeasurable> {
 
 		Quantity<?> other = (Quantity<?>) obj;
 
-		// prevent cross-category comparison
 		if (!this.unit.getClass().equals(other.unit.getClass()))
 			return false;
 

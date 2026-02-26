@@ -27,71 +27,49 @@ public class QuantityMeasurementApp {
 		System.out.println();
 	}
 
-	// Length Demo (UC1–UC8 behavior preserved through UC10 generic design)
 	public static void demonstrateLengthFeatures() {
-
-		Quantity<LengthUnit> feet1 = new Quantity<>(1.0, LengthUnit.FEET);
-		Quantity<LengthUnit> feet2 = new Quantity<>(1.0, LengthUnit.FEET);
-
-		Quantity<LengthUnit> inch1 = new Quantity<>(1.0, LengthUnit.INCH);
-		Quantity<LengthUnit> inch2 = new Quantity<>(1.0, LengthUnit.INCH);
 
 		Quantity<LengthUnit> oneFoot = new Quantity<>(1.0, LengthUnit.FEET);
 		Quantity<LengthUnit> twelveInch = new Quantity<>(12.0, LengthUnit.INCH);
 
-		Quantity<LengthUnit> oneYard = new Quantity<>(1.0, LengthUnit.YARDS);
-		Quantity<LengthUnit> threeFeet = new Quantity<>(3.0, LengthUnit.FEET);
-
-		Quantity<LengthUnit> oneCm = new Quantity<>(1.0, LengthUnit.CENTIMETERS);
-		Quantity<LengthUnit> inchEquivalent = new Quantity<>(0.393701, LengthUnit.INCH);
-
-		// UC1
-		demonstrateEquality(feet1, feet2);
-
-		// UC2
-		demonstrateEquality(inch1, inch2);
-
-		// UC3
 		demonstrateEquality(oneFoot, twelveInch);
-
-		// UC4
-		demonstrateEquality(oneYard, threeFeet);
-		demonstrateEquality(oneCm, inchEquivalent);
-
-		// UC5
-		demonstrateConversion(new Quantity<>(1.0, LengthUnit.FEET), LengthUnit.INCH);
-		demonstrateConversion(new Quantity<>(24.0, LengthUnit.INCH), LengthUnit.FEET);
-		demonstrateConversion(new Quantity<>(1.0, LengthUnit.YARDS), LengthUnit.INCH);
-
-		// UC6
+		demonstrateConversion(oneFoot, LengthUnit.INCH);
 		demonstrateAddition(oneFoot, twelveInch);
-
-		// UC7 (explicit target unit)
-		demonstrateAdditionWithTarget(oneFoot, twelveInch, LengthUnit.FEET);
-		demonstrateAdditionWithTarget(oneFoot, twelveInch, LengthUnit.INCH);
 		demonstrateAdditionWithTarget(oneFoot, twelveInch, LengthUnit.YARDS);
 	}
 
-	// Weight Demo (UC9 behavior preserved through UC10 generic design)
 	public static void demonstrateWeightFeatures() {
 
 		Quantity<WeightUnit> kg = new Quantity<>(1.0, WeightUnit.KILOGRAM);
 		Quantity<WeightUnit> gram = new Quantity<>(1000.0, WeightUnit.GRAM);
 
 		demonstrateEquality(kg, gram);
-
 		demonstrateConversion(kg, WeightUnit.GRAM);
-		demonstrateConversion(new Quantity<>(2.0, WeightUnit.POUND), WeightUnit.KILOGRAM);
-
 		demonstrateAddition(kg, gram);
-
 		demonstrateAdditionWithTarget(kg, gram, WeightUnit.GRAM);
-		demonstrateAdditionWithTarget(new Quantity<>(1.0, WeightUnit.POUND), new Quantity<>(453.592, WeightUnit.GRAM),
-				WeightUnit.POUND);
+	}
+
+	public static void demonstrateVolumeFeatures() {
+
+		Quantity<VolumeUnit> litre = new Quantity<>(1.0, VolumeUnit.LITRE);
+		Quantity<VolumeUnit> milli = new Quantity<>(1000.0, VolumeUnit.MILLILITRE);
+		Quantity<VolumeUnit> gallon = new Quantity<>(1.0, VolumeUnit.GALLON);
+
+		demonstrateEquality(litre, milli);
+		demonstrateEquality(litre, new Quantity<>(0.264172, VolumeUnit.GALLON));
+
+		demonstrateConversion(litre, VolumeUnit.MILLILITRE);
+		demonstrateConversion(gallon, VolumeUnit.LITRE);
+		demonstrateConversion(milli, VolumeUnit.GALLON);
+
+		demonstrateAddition(litre, milli);
+		demonstrateAdditionWithTarget(litre, gallon, VolumeUnit.MILLILITRE);
+		demonstrateAdditionWithTarget(milli, gallon, VolumeUnit.GALLON);
 	}
 
 	public static void main(String[] args) {
 		demonstrateLengthFeatures();
 		demonstrateWeightFeatures();
+		demonstrateVolumeFeatures();
 	}
 }
