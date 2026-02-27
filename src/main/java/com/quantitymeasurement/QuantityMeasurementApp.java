@@ -50,6 +50,59 @@ public class QuantityMeasurementApp {
 		System.out.println();
 	}
 
+	// ---------------- UC14: TEMPERATURE DEMO ----------------
+
+	public static void demonstrateTemperatureFeatures() {
+
+		Quantity<TemperatureUnit> c0 = new Quantity<>(0.0, TemperatureUnit.CELSIUS);
+		Quantity<TemperatureUnit> f32 = new Quantity<>(32.0, TemperatureUnit.FAHRENHEIT);
+		Quantity<TemperatureUnit> k273_15 = new Quantity<>(273.15, TemperatureUnit.KELVIN);
+
+		Quantity<TemperatureUnit> c100 = new Quantity<>(100.0, TemperatureUnit.CELSIUS);
+		Quantity<TemperatureUnit> f212 = new Quantity<>(212.0, TemperatureUnit.FAHRENHEIT);
+		Quantity<TemperatureUnit> k373_15 = new Quantity<>(373.15, TemperatureUnit.KELVIN);
+
+		System.out.println("----- Temperature Equality -----");
+		demonstrateEquality(c0, f32);
+		demonstrateEquality(c0, k273_15);
+		demonstrateEquality(c100, f212);
+		demonstrateEquality(c100, k373_15);
+
+		System.out.println("----- Temperature Conversion (All Unit Pairs) -----");
+		demonstrateConversion(c0, TemperatureUnit.FAHRENHEIT);
+		demonstrateConversion(c0, TemperatureUnit.KELVIN);
+
+		demonstrateConversion(f32, TemperatureUnit.CELSIUS);
+		demonstrateConversion(f32, TemperatureUnit.KELVIN);
+
+		demonstrateConversion(k273_15, TemperatureUnit.CELSIUS);
+		demonstrateConversion(k273_15, TemperatureUnit.FAHRENHEIT);
+
+		System.out.println("----- Temperature Unsupported Operations -----");
+		try {
+			System.out.println(
+					new Quantity<>(100.0, TemperatureUnit.CELSIUS).add(new Quantity<>(50.0, TemperatureUnit.CELSIUS)));
+		} catch (UnsupportedOperationException e) {
+			System.out.println("Expected Error (ADD): " + e.getMessage());
+		}
+
+		try {
+			System.out.println(new Quantity<>(100.0, TemperatureUnit.CELSIUS)
+					.subtract(new Quantity<>(50.0, TemperatureUnit.CELSIUS)));
+		} catch (UnsupportedOperationException e) {
+			System.out.println("Expected Error (SUBTRACT): " + e.getMessage());
+		}
+
+		try {
+			System.out.println(new Quantity<>(100.0, TemperatureUnit.CELSIUS)
+					.divide(new Quantity<>(50.0, TemperatureUnit.CELSIUS)));
+		} catch (UnsupportedOperationException e) {
+			System.out.println("Expected Error (DIVIDE): " + e.getMessage());
+		}
+
+		System.out.println();
+	}
+
 	// Length Demo (UC1–UC8 behavior preserved through UC10 generic design)
 	public static void demonstrateLengthFeatures() {
 
@@ -107,5 +160,6 @@ public class QuantityMeasurementApp {
 		demonstrateLengthFeatures();
 		demonstrateWeightFeatures();
 		demonstrateVolumeFeatures();
+		demonstrateTemperatureFeatures();
 	}
 }

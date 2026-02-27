@@ -16,6 +16,16 @@ public enum LengthUnit implements IMeasurable {
 	}
 
 	@Override
+	public double convertToBaseUnit(double value) {
+		return value * conversionFactor; // base = FEET
+	}
+
+	@Override
+	public double convertFromBaseUnit(double baseValue) {
+		return baseValue / conversionFactor; // from FEET to this unit
+	}
+
+	@Override
 	public String getUnitName() {
 		return this.name();
 	}

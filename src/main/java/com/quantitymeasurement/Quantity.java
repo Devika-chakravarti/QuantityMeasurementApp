@@ -88,6 +88,14 @@ public final class Quantity<U extends IMeasurable> {
 			throw new IllegalArgumentException("Target unit cannot be null");
 	}
 
+	// ---------------- UC14: Operation Support Validation ----------------
+
+	private void validateOperationSupport(Quantity<U> other, ArithmeticOperation operation) {
+		// If unit type wants to restrict operations (Temperature), it throws here.
+		this.unit.validateOperationSupport(operation.name());
+		other.unit.validateOperationSupport(operation.name());
+	}
+
 	// ---------------- UC13: Core Base Arithmetic Helper ----------------
 
 	private double performBaseArithmetic(Quantity<U> other, ArithmeticOperation operation) {
@@ -96,12 +104,15 @@ public final class Quantity<U extends IMeasurable> {
 		return operation.compute(aBase, bBase);
 	}
 
+	// ---------------- Public API (unchanged) ----------------
+
 	public Quantity<U> add(Quantity<U> other) {
 		return add(other, this.unit);
 	}
 
 	public Quantity<U> add(Quantity<U> other, U targetUnit) {
 		validateArithmeticOperands(other, targetUnit, true);
+		validateOperationSupport(other, ArithmeticOperation.ADD);
 
 		double baseResult = performBaseArithmetic(other, ArithmeticOperation.ADD);
 		double converted = targetUnit.convertFromBaseUnit(baseResult);
@@ -115,6 +126,7 @@ public final class Quantity<U extends IMeasurable> {
 
 	public Quantity<U> subtract(Quantity<U> other, U targetUnit) {
 		validateArithmeticOperands(other, targetUnit, true);
+		validateOperationSupport(other, ArithmeticOperation.SUBTRACT);
 
 		double baseResult = performBaseArithmetic(other, ArithmeticOperation.SUBTRACT);
 		double converted = targetUnit.convertFromBaseUnit(baseResult);
@@ -124,9 +136,12 @@ public final class Quantity<U extends IMeasurable> {
 
 	public double divide(Quantity<U> other) {
 		validateArithmeticOperands(other, null, false);
+		validateOperationSupport(other, ArithmeticOperation.DIVIDE);
 
-		return performBaseArithmetic(other, ArithmeticOperation.DIVIDE); // dimensionless scalar
+		return performBaseArithmetic(other, ArithmeticOperation.DIVIDE);
 	}
+
+	// ---------------- equals/hashCode/toString unchanged ----------------
 
 	@Override
 	public boolean equals(Object obj) {

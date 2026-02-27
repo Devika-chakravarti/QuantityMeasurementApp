@@ -16,6 +16,18 @@ public enum WeightUnit implements IMeasurable {
 	}
 
 	@Override
+	public double convertToBaseUnit(double value) {
+		// Convert to KILOGRAM (base unit)
+		return value * conversionFactor;
+	}
+
+	@Override
+	public double convertFromBaseUnit(double baseValue) {
+		// Convert from KILOGRAM to current unit
+		return baseValue / conversionFactor;
+	}
+
+	@Override
 	public String getUnitName() {
 		return this.name();
 	}
